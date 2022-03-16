@@ -1,11 +1,16 @@
+import { useLinkProps } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
+import { Text, TextInput } from 'react-native';
 
-const FormInput = () => {
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
+export default FormInput = ({title, placeholderInput, styleText, styleInput,  ...rest }) => {
   return (
-    <div>
-      <input type="text" />
-    </div>
+    <>
+    {title !== undefined ? <Text style={styleText}>{title}</Text> : null}
+      <TextInput 
+        placeholder={placeholderInput} 
+        style={styleInput}
+        {...rest} 
+      />
+    </>
   );
 }

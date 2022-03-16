@@ -1,21 +1,28 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import WelcomeScreen from '../src/pages/welcome';
 import LoginScreen from '../src/pages/login';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from 'expo-status-bar';
+import { COLOR_DEFAULT } from '../src/style/MainStyle';
 
 const Stack = createNativeStackNavigator();
 
 const MyStack = () => {
     return (
+      <>
       <Stack.Navigator>
         <Stack.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}
-          options={{ title: "Welcome" }}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen 
+          name="LoginScreen" 
+          component={LoginScreen} 
+          options={{ headerShown: false }}
+          />
       </Stack.Navigator>
+      </>
     );
 }
 
