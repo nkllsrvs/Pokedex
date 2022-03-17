@@ -35,6 +35,12 @@ const styles = StyleSheet.create({
         marginTop: "5%",
         marginBottom: "5%",    
     },
+    input:{
+        borderBottomWidth: 1,
+        height: 40,
+        marginBottom: "5%",
+        fontSize: 1
+    },
     text:{
          color: '#a1a1a1',
     },
@@ -43,7 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR_DEFAULT,
         borderRadius: 50,
         paddingVertical: 8,
-        width: "40%",
+        width: "60%",
         alignSelf: 'center',
         bottom: "15%",
         justifyContent:"center",

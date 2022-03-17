@@ -5,6 +5,7 @@ import { TextInput } from 'react-native-web';
 import FormInput from '../../components/FormInput';
 import { styles, COLOR_DEFAULT } from '../../style/MainStyle';
 import * as Animatable from 'react-native-animatable';
+import componentStyle from '../register/componentStyle';
 
 export default function LoginScreen() {
     return (
@@ -18,7 +19,7 @@ export default function LoginScreen() {
           <Animatable.View
             animation="fadeInUp"
             delay={500}
-            style={[styles.containerForm, { backgroudColor: '#7dadeb' }]}
+            style={styles.containerForm}
           >
             <FormInput
               styleText={styles.title}
@@ -32,10 +33,10 @@ export default function LoginScreen() {
               title="Senha"
               placeholderInput="********"
             />
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={componentStyle.button}>
               <Text style={styles.buttonText}>Acessar</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonRegister}>
+            <TouchableOpacity style={ componentStyle.text }>
               <Text style={styles.buttonRegisterText}>Register</Text>
             </TouchableOpacity>
           </Animatable.View>

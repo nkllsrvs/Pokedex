@@ -51,7 +51,7 @@ export default function RegisterScreen() {
                         Crie sua conta
                     </Text>
                 </View>
-                <FormInput label='Nome' state='warning' />
+                <FormInput title='Nome' state='warning' />
                 <TextInput
                     style={styles.inputFild}
                     onChangeText={setName}
