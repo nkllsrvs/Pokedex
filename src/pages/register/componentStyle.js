@@ -1,12 +1,11 @@
 import { StyleSheet } from "react-native"; 
-const styles = StyleSheet.create({
+import { COLORS } from "../../style/MainStyle";
+const componentStyle = StyleSheet.create({
     button:{
-        marginTop: 14,
-        alignSelf: 'center',
+        position:'relative',
+        margin: '5%', 
+        backgroundColor: COLORS.info,
     },
-    text:{
-        color: '#a1a1a1',
-    }
 });
 
 export default componentStyle;

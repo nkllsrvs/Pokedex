@@ -1,13 +1,23 @@
 import { StyleSheet } from "react-native"; 
-const COLOR_DEFAULT = "#ff2d2d";
+const COLORS = {
+    default: "#d60909",
+    danger: "#ecb0e1",
+    success: "#00a878",
+    warning: "#f3c178",
+    info: "#3c91e6",
+    black: "#000",
+    white: "#fff",
+    gray: "#ccc",
+};
+
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: COLOR_DEFAULT,
+        backgroundColor: COLORS.default,
     },
     containerLogo:{
         flex: 2,
-        backgroundColor: COLOR_DEFAULT,
+        backgroundColor: COLORS.default,
         alignItems: 'flex-start',
         justifyContent: 'center',
     },
@@ -17,7 +27,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30, 
         paddingStart: "5%",
-        paddingEnd: "5%",
+        paddingEnd: "3%",
     },
     containerHeader:{
         marginBottom: "14%",
@@ -32,21 +42,24 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 24,
         fontWeight: 'bold',
-        marginTop: "5%",
-        marginBottom: "5%",    
+        marginTop: 10,
     },
     input:{
         borderBottomWidth: 1,
         height: 40,
-        marginBottom: "5%",
-        fontSize: 1
+        fontSize: 18,
+        width: "100%",
+        paddingLeft: "5%",
+        borderBottomColor: COLORS.gray,
     },
     text:{
          color: '#a1a1a1',
+         paddingLeft: 10,
+         paddingRight: 10,
     },
     button:{
         position: 'absolute',
-        backgroundColor: COLOR_DEFAULT,
+        backgroundColor: COLORS.default,
         borderRadius: 50,
         paddingVertical: 8,
         width: "60%",
@@ -64,6 +77,34 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
+    },
+    containerColumn:{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'nowrap',
+        margin: "15%",
+    },
+    containerRow:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    smallText:{
+        fontSize: 12,
+        color: '#a1a1a1',
+    },
+    inputArea:{
+        flexDirection: 'row',
+        width: '90%',
+        alignItems: 'center',
+    },
+    icon:{
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 40,
     }
 });
-export { styles, COLOR_DEFAULT };
+export { styles, COLORS };

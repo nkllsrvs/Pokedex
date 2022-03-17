@@ -12,7 +12,7 @@ const MyStack = () => {
     return (
       <>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}
           options={{ headerShown: false }}
@@ -21,8 +21,12 @@ const MyStack = () => {
           name="LoginScreen" 
           component={LoginScreen} 
           options={{ headerShown: false }}
-          />
-        <Stack.Screen name="Register" component={RegisterScreen} />
+        /> */}
+        <Stack.Screen 
+          name="RegisterScreen" 
+          component={RegisterScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
       </>
     );

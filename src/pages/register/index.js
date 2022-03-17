@@ -1,171 +1,219 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, Image, TouchableOpacity, TextInput, Switch } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, View, Text, TouchableOpacity, TextInput, Switch, StatusBar } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import  FormInput  from '../../components/FormInput/index';
+import { styles, COLORS } from '../../style/MainStyle';
+import { Ionicons } from '@expo/vector-icons'
+import ColorPropType from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType';
 
-
-import { FormInput } from '../../components/FormInput/index';
 
 export default function RegisterScreen() {
+  //#region State
 
-    //#region State
+  const [name, setName] = useState("");
+  const [validName, setValidName] = useState(true);
+  const [messageName, setMessageName] = useState("Nome obrigatório");
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [confirmTerms, setConfirmTerms] = useState(false);
-    const [passwordMatch, setPasswordMatch] = useState(false);
-    const [isEnabled, setIsEnabled] = useState(true);
-    const state = 'warning';
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(true);
+  const [messageEmail, setMessageEmail] = useState("E-mail obrigatório");
 
-    //#endregion
+  const [password, setPassword] = useState("");
+  const [hidePass, setHidePass] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
+  const [messagePassword, setMessagePassword] = useState("Senha obrigatória");
 
-    //#region Effects
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [hideConfirmPass, setHideConfirmPass] = useState(true);
+  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
+  const [messageConfirmPassword, setMessageConfirmPassword] = useState(
+    "Confirmação de senha obrigatória"
+  );
 
-    //#endregion
+  const [confirmTerms, setConfirmTerms] = useState(false);
+  const [passwordMatch, setPasswordMatch] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
+  const state = "warning";
 
-    //#region Functions  
+  //#endregion
 
-    const confirmPasswordMatch = () => {
-        password != confirmPassword ? setPasswordMatch(false) : setPasswordMatch(true);
+  //#region Effects
+  useEffect(() => {
+    setValidName(!name.length > 0);
+    setMessageName(!name.length > 0 ? "Nome obrigatório" : "");
+  }, [name]);
+  useEffect(() => {
+    setValidEmail(!email.length > 0);
+    setMessageEmail(!email.length > 0 ? "E-mail obrigatório" : "");
+  }, [email]);
+  useEffect(() => {
+    setValidPassword(!password.length > 0);
+    setMessagePassword(!password.length > 0 ? "Senha obrigatória" : "");
+  }, [password]);
+  useEffect(() => {
+    if (password.length > 0 && confirmPassword.length > 0) {
+      setPasswordMatch(password === confirmPassword);
+      setMessageConfirmPassword(
+        password === confirmPassword
+          ? "Confimação de senha correta"
+          : "Senhas não conferem!"
+      );
+    } else {
+      setMessageConfirmPassword("Confirmação de senha obrigatória");
     }
+  }, [password, confirmPassword]);
+  useEffect(() => {
+    setIsEnabled(!validName && !validEmail && passwordMatch);
+  }, [validName, validEmail, passwordMatch]);
+  //#endregion
 
-    const handleSubmit = () => {
-        console.log('name: ', name);
-        console.log('email: ', email);
-        console.log('password: ', password);
-        console.log('confirmPassword: ', confirmPassword);
-        console.log('confirmTerms: ', confirmTerms);
-    }
+  //#region Functions
 
-    //#endregion
+  const confirmPasswordMatch = () => {
+    password != confirmPassword
+      ? setPasswordMatch(false)
+      : setPasswordMatch(true);
+  };
 
+  const handleSubmit = () => {
+    console.log("name: ", name);
+    console.log("email: ", email);
+    console.log("password: ", password);
+    console.log("confirmPassword: ", confirmPassword);
+    console.log("confirmTerms: ", confirmTerms);
+  };
 
-    return (
-        <View style={styles.page}>
+  //#endregion
 
-            <StatusBar style="auto" />
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.h1}>
-                        Crie sua conta
-                    </Text>
-                </View>
-                <FormInput title='Nome' state='warning' />
-                <TextInput
-                    style={styles.inputFild}
-                    onChangeText={setName}
-                    value={name}
-                    placeholder="Name"
-
-                />
-                <TextInput
-                    style={styles.inputFild}
-                    onChangeText={setEmail}
-                    value={email}
-                    placeholder="Email"
-                />
-                <TextInput
-                    style={styles.inputFild}
-                    onChangeText={setPassword}
-                    value={password}
-                    placeholder="Password"
-                />
-                <TextInput
-                    style={styles.inputFild}
-                    onChangeText={setConfirmPassword}
-                    value={confirmPassword}
-                    placeholder="Confirm Password"
-                />
-                <View style={styles.agreeTerms}>
-                    <Switch
-                        trackColor={{ false: "#767577", true: "#81b0ff" }}
-                        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={setConfirmTerms}
-                        value={confirmTerms}
-                    />
-                    <TouchableOpacity>
-                        <Text style={styles.agreeTermsText} >I agree to the terms and conditions</Text>
-                    </TouchableOpacity>
-                </View>
-                <TouchableOpacity style={styles.button} onPress={() => handleSubmit()}>
-                    <Text style={styles.buttonText}>Register</Text>
-                </TouchableOpacity>
-            </View>
-
+  return (
+    <ScrollView style={styles.container}>
+      <Animatable.View
+        animation="fadeInLeft"
+        delay={500}
+        style={styles.containerHeader}
+      >
+        <Text style={styles.message}>Crie sua conta!</Text>
+      </Animatable.View>
+      <Animatable.View
+        animation="fadeInUp"
+        delay={500}
+        style={styles.containerForm}
+      >
+        <View>
+          <Text style={styles.title}>Nome</Text>
+          <View style={styles.inputArea}>
+            <TextInput
+              style={styles.input}
+              placeholder="Digite seu nome..."
+              value={name}
+              onChangeText={(text) => setName(text)}
+            />
+            <TouchableOpacity disabled={true}>
+              <Ionicons
+                name={validName ? "alert-circle" : "checkmark-circle"}
+                style={[
+                  styles.icon,
+                  { color: validName ? COLORS.warning : COLORS.success },
+                ]}
+                size={25}
+                color="#a1a1a1"
+              />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.smallText}>{messageName}</Text>
         </View>
-    )
+        <View>
+          <Text style={styles.title}>Email</Text>
+          <View style={styles.inputArea}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+            />
+            <TouchableOpacity>
+              <Ionicons
+                name={validEmail ? "alert-circle" : "checkmark-circle"}
+                style={[
+                  styles.icon,
+                  { color: validEmail ? COLORS.warning : COLORS.success },
+                ]}
+                size={25}
+                color="#a1a1a1"
+              />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.smallText}>{messageEmail}</Text>
+        </View>
+
+        <View>
+          <Text style={styles.title}>Senha</Text>
+          <View style={styles.inputArea}>
+            <TextInput
+              style={styles.input}
+              placeholder="Digite a sua senha..."
+              value={password}
+              onChangeText={(password) => setPassword(password)}
+              secureTextEntry={hidePass}
+            />
+            <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
+              <Ionicons
+                name={!hidePass ? "eye-off" : "eye"}
+                style={[
+                  styles.icon,
+                  { color: !passwordMatch ? COLORS.gray : COLORS.success },
+                ]}
+                size={25}
+                color="#a1a1a1"
+              />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.smallText}>{messagePassword}</Text>
+        </View>
+
+        <View>
+          <Text style={styles.title}>Confirme a senha</Text>
+          <View style={styles.inputArea}>
+            <TextInput
+              style={styles.input}
+              placeholder="Confirme a sua senha..."
+              value={confirmPassword}
+              onChangeText={(password) => setConfirmPassword(password)}
+              secureTextEntry={hideConfirmPass}
+            />
+            <TouchableOpacity
+              onPress={() => setHideConfirmPass(!hideConfirmPass)}
+            >
+              <Ionicons
+                name={!hideConfirmPass ? "eye-off" : "eye"}
+                style={[
+                  styles.icon,
+                  { color: !passwordMatch ? COLORS.gray : COLORS.success },
+                ]}
+                size={25}
+                color="#a1a1a1"
+              />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.smallText}>{messageConfirmPassword}</Text>
+        </View>
+        <View style={styles.containerColumn}>
+          <Text style={styles.text}>
+            Clique aqui para aceitar os termos da nossa política de privacidade.
+          </Text>
+        </View>
+        <View style={styles.containerColumn}>
+          <TouchableOpacity
+            disabled={!isEnabled}
+            style={[
+              styles.button,
+              { backgroundColor: isEnabled ? COLORS.success : COLORS.gray },
+            ]}
+          >
+            <Text style={styles.buttonText}>Cadastrar</Text>
+          </TouchableOpacity>
+        </View>
+      </Animatable.View>
+    </ScrollView>
+  );
 }
-
-const styles = StyleSheet.create({
-    page: {
-        flex: 1,
-        backgroundColor: '#ccc',
-        width: '100%',
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-    },
-    container: {
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 10,
-        padding: 20,
-        shadowColor: "rgb(230, 230, 230)",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-    },
-    inputFild: {
-        width: '100%',
-        height: 50,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        marginBottom: 10,
-        padding: 10,
-        borderRadius: 10,
-    },
-    agreeTerms: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems: "center",
-    },
-    agreeTermsText: {
-        fontSize: 10,
-        color: '#ccc',
-        margin: 10,
-    },
-    button: {
-        width: '100%',
-        height: 50,
-        backgroundColor: '#f5dd4b',
-        alignItems: 'center',
-        borderRadius: 10,
-        justifyContent: 'center',
-        marginVertical: 10,
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    header: {
-        width: '100%',
-        height: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20,
-    },
-    h1: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        color: '#f5dd4b',
-    },
-}
-
-
-)
