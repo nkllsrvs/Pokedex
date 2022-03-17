@@ -44,6 +44,7 @@ export default function LoginScreen({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.button, { position: "relative", margin: "5%" }]}
+              onPress={() => { navigation.navigate("HomeScreen") }}
             >
               <Text style={styles.buttonText}>Acessar</Text>
             </TouchableOpacity>
