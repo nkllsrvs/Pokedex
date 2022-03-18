@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, TextInput, Switch, StatusBar } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import  FormInput  from '../../components/FormInput/index';
 import { styles, COLORS } from '../../style/MainStyle';
 import { Ionicons } from '@expo/vector-icons'
-import ColorPropType from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType';
+import Modal from '../../components/Modal';
 
 
 export default function RegisterScreen() {
@@ -198,7 +197,7 @@ export default function RegisterScreen() {
           <Text style={styles.smallText}>{messageConfirmPassword}</Text>
         </View>
         <View style={styles.containerColumn}>
-          <Text style={styles.text}>
+          <Text style={styles.text} onPress={() => Modal()}>
             Clique aqui para aceitar os termos da nossa política de privacidade.
           </Text>
         </View>
