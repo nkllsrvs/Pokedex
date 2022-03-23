@@ -1,5 +1,5 @@
 
-const email = (email) => {
+export const email = (email) => {
     let errors = [];
     let verify = true
 
@@ -13,7 +13,7 @@ const email = (email) => {
         verify
     ];
 }
-const password = (password) => {
+export const password = (password) => {
     let errors = [];
     let verify = true
 
@@ -43,7 +43,7 @@ const password = (password) => {
     ];
 
 }
-const cpf = (cpfEntrada) => {
+export const cpf = (cpfEntrada) => {
     let errors = [];
     let verify = true
     let cpf = cpfEntrada.replace(/[^\d]+/g, '');
