@@ -18,44 +18,79 @@ export default function LoadingScreen({ navigation }) {
   //#endregion
   //#region Effects
   //#endregion
-  const [dots, setDots] = useState(Array(3).fill(0))
   const spinValue = useRef(new Animated.Value(0)).current
-  Animated.loop(
-    Animated.timing(spinValue, {
-      toValue: 1,
-      duration: 3000,
-      easing: Easing.linear,
-      useNativeDriver: false,
-    }),
-  ).start()
+  const jumpValue = useRef(new Animated.Value(0)).current
+  const blinkValue = useRef(new Animated.Value(0)).current
+
+  Animated.timing(spinValue, {
+    toValue: 1,
+    duration: 4000,
+    easing: Easing.linear,
+    useNativeDriver: false,
+  }).start()
+
+  Animated.timing(jumpValue, {
+    toValue: 2,
+    duration: 4000,
+    easing: Easing.in(Easing.bounce),
+    useNativeDriver: false,
+  }).start()
+
+  Animated.timing(blinkValue, {
+    toValue: 6,
+    duration: 12000,
+    easing: Easing.bounce,
+    useNativeDriver: false,
+  }).start()
 
   const spin = spinValue.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '680deg'],
+    outputRange: ['0deg', '360deg'],
   })
   const position = spinValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [-windowWidth / 2 - 160, windowWidth / 2 + 160],
+    outputRange: [-windowWidth / 2 - 160, 0],
   })
-  const dotsOp = spinValue.interpolate({
+  const jump = jumpValue.interpolate({
+    inputRange: [0, 1, 2],
+    outputRange: [0, -800, 0],
+  })
+  const scale = spinValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 1],
+    outputRange: [1, 1 / 2],
+  })
+  const blink = blinkValue.interpolate({
+    inputRange: [0, 1, 2, 3, 4, 5, 6],
+    outputRange: ['black', 'black', 'black', 'black', 'black', 'red', 'black'],
   })
 
   return (
     <View style={[styles.container]}>
       <Animated.View
-        style={[
-          styles.circle,
-          { transform: [{ translateX: position }, { rotate: spin }] },
-        ]}
+        style={{ transform: [{ translateY: jump }, { scale: scale }] }}
       >
-        <View style={styles.redArea}></View>
+        <Animated.View
+          style={[
+            styles.circle,
+            {
+              transform: [{ translateX: position }, { rotate: spin }],
+            },
+          ]}
+        >
+          <View style={styles.redArea}></View>
 
-        <View style={styles.whiteArea}></View>
-        <View style={styles.circle2}>
-          <View style={styles.circle3}></View>
-        </View>
+          <View style={styles.whiteArea}></View>
+          <Animated.View
+            style={[
+              styles.circle2,
+              {
+                borderColor: blink,
+              },
+            ]}
+          >
+            <View style={styles.circle3}></View>
+          </Animated.View>
+        </Animated.View>
       </Animated.View>
       <View style={{ flexDirection: 'row' }}>
         <Animated.Text style={{ fontSize: 28, color: '#fff' }}>
@@ -96,11 +131,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     height: '120%',
     width: '120%',
+    borderColor: '#2e2e2e',
+    borderWidth: 5,
   },
   whiteArea: {
     backgroundColor: COLORS.white,
     height: '120%',
     width: '120%',
+    borderColor: '#2e2e2e',
+    borderWidth: 5,
   },
   circle: {
     width: 150,
@@ -109,8 +148,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#2e2e2e',
-    borderWidth: 10,
     position: 'relative',
     overflow: 'hidden',
   },
@@ -121,7 +158,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#2e2e2e',
     borderWidth: 10,
     position: 'absolute',
   },

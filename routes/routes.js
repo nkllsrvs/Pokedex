@@ -6,36 +6,38 @@ import { StatusBar } from 'expo-status-bar';
 import { COLOR_DEFAULT } from '../src/style/MainStyle';
 import RegisterScreen from '../src/pages/register';
 import HomeScreen from '../src/pages/home';
+import LoadingScreen from '../src/components/Loading';
 
 const Stack = createNativeStackNavigator();
 
 const MyStack = () => {
-    return (
-      <>
+  return (
+    <>
       <Stack.Navigator>
         <Stack.Screen
           name="WelcomeScreen"
-          component={WelcomeScreen}
+          component={LoadingScreen}
+          // component={WelcomeScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen 
-          name="LoginScreen" 
-          component={LoginScreen} 
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen 
-          name="RegisterScreen" 
+        <Stack.Screen
+          name="RegisterScreen"
           component={RegisterScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen 
-          name="HomeScreen" 
+        <Stack.Screen
+          name="HomeScreen"
           component={HomeScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
-      </>
-    );
-  }
+    </>
+  );
+}
 
 export default MyStack;
